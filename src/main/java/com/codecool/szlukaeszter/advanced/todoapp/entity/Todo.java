@@ -18,6 +18,6 @@ public class Todo {
     private String title;
 
     @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
+    private Status status;
 
 }

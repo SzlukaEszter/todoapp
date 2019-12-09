@@ -1,8 +1,8 @@
-package com.codecool.szlukaeszter.advanced.todoapp.repositories;
+package com.codecool.szlukaeszter.advanced.todoapp.repository;
 
 
-import com.codecool.szlukaeszter.advanced.todoapp.model.Status;
-import com.codecool.szlukaeszter.advanced.todoapp.model.Todo;
+import com.codecool.szlukaeszter.advanced.todoapp.entity.Status;
+import com.codecool.szlukaeszter.advanced.todoapp.entity.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

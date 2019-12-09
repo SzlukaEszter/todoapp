@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -29,23 +30,21 @@ public class Controller {
         return SUCCESS;
     }
 
+    @PostMapping("/list")
+    List<Todo> getList(@RequestParam HashMap<String, String> req) {
+        List<Todo> resultList = todoService.ofStatus(req.get("status"));
+        resultList.stream()
+                .forEach(todo -> {
+                    todo.calculateCompleted();
+                });
+        return resultList;
+    }
+
 
    /*
 
 
-    // List by id
-    post("/list", (req, resp) -> {
-        List<Todo> daos = TodoDao.ofStatus(req.queryParams("status"));
-        JSONArray arr = new JSONArray();
-        for (Todo dao : daos) {
-            JSONObject jo = new JSONObject();
-            jo.put("id", dao.getId());
-            jo.put("title", dao.getTitle());
-            jo.put("completed", dao.isCompleted());
-            arr.put(jo);
-        }
-        return arr.toString(2);
-    });
+
 
     // Remove all completed
     delete("/todos/completed", (req, res) -> {

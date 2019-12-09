@@ -4,10 +4,7 @@ import com.codecool.szlukaeszter.advanced.todoapp.entity.Status;
 import com.codecool.szlukaeszter.advanced.todoapp.entity.Todo;
 import com.codecool.szlukaeszter.advanced.todoapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,24 +37,20 @@ public class Controller {
         return resultList;
     }
 
+    @DeleteMapping("/todos/completed")
+    public String removeAllCompleted(){
+        todoService.removeCompleted();
+        return SUCCESS;
+    }
+
+    @PutMapping("/todos/toggle_all")
+    public String toggleAllStatus(@RequestParam boolean toggleAll){
+        todoService.toggleAll(toggleAll);
+        return SUCCESS;
+    }
+
 
    /*
-
-
-
-
-    // Remove all completed
-    delete("/todos/completed", (req, res) -> {
-        TodoDao.removeCompleted();
-        return SUCCESS;
-    });
-
-    // Toggle all status
-    put("/todos/toggle_all", (req, res) -> {
-        String complete = req.queryParams("toggle-all");
-        TodoDao.toggleAll(complete.equals("true"));
-        return SUCCESS;
-    });
 
     // Remove by id
     delete("/todos/:id", (req, res) -> {

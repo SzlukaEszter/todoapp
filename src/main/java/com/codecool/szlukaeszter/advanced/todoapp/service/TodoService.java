@@ -51,7 +51,9 @@ public class TodoService {
     }
 
     public void toggleAll(boolean complete) {
-        all().forEach(t -> t.setStatus(complete ? Status.COMPLETE : Status.ACTIVE));
+        List<Todo> all = all();
+        all.forEach(t -> t.setStatus(complete ? Status.COMPLETE : Status.ACTIVE));
+        todoRepository.saveAll(all);
     }
 
     public  List<Todo> all() {

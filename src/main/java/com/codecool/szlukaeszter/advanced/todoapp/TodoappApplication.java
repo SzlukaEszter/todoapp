@@ -57,11 +57,13 @@ public class TodoappApplication {
             TodoAppUser user1 = TodoAppUser.builder()
                     .username("Simple")
                     .password(passwordEncoder.encode("password"))
+					.roles(Arrays.asList("USER"))
                     .build();
 
             TodoAppUser user2 = TodoAppUser.builder()
                     .username("Admin")
                     .password(passwordEncoder.encode("password"))
+					.roles((Arrays.asList("ADMIN")))
                     .build();
 
             todoAppUserRepository.saveAll(Arrays.asList(user1, user2));

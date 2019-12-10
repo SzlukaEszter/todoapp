@@ -22,15 +22,21 @@ public class TodoService {
     }
 
     public void update(Long id, String title) {
-        find(id).setTitle(title);
+        todoRepository.updateTodoById(id, title);
     }
 
-    public  List<Todo> ofStatus(String statusString) {
-        return (statusString == null || statusString.isEmpty()) ? all() : ofStatus(Status.valueOf(statusString.toUpperCase()));
+   public  List<Todo> ofStatus(String statusString) {
+        if (statusString == null || statusString.isEmpty()){
+            return all();
+        }
+        else {
+            boolean completed = statusString.equals("complete") ? true : false;
+            return ofStatus(completed);
+        }
     }
 
-    public  List<Todo> ofStatus(Status status) {
-        return todoRepository.findAllByStatus(status);
+   public  List<Todo> ofStatus(boolean completed) {
+        return todoRepository.findAllByCompleted(completed);
     }
 
     public void remove(Long id) {
@@ -38,22 +44,15 @@ public class TodoService {
     }
 
     public void removeCompleted() {
-        todoRepository.deleteAll(ofStatus(Status.COMPLETE));
+        todoRepository.deleteAll(ofStatus(true));
     }
 
     public void toggleStatus(Long id, boolean isComplete) {
-        Todo todo = find(id);
-        if (isComplete) {
-            todo.setStatus(Status.COMPLETE);
-        } else {
-            todo.setStatus(Status.ACTIVE);
-        }
+       todoRepository.updateStatusById(id, isComplete);
     }
 
     public void toggleAll(boolean complete) {
-        List<Todo> all = all();
-        all.forEach(t -> t.setStatus(complete ? Status.COMPLETE : Status.ACTIVE));
-        todoRepository.saveAll(all);
+    todoRepository.updateAllStatuses(complete);
     }
 
     public  List<Todo> all() {

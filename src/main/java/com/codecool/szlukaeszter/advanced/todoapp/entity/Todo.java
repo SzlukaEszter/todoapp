@@ -17,14 +17,13 @@ public class Todo {
 
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @Transient
     private boolean completed;
 
-    public void calculateCompleted(){
-        completed = status.equals(Status.COMPLETE);
+    public Status getStatus(){
+        return completed ? Status.COMPLETE : Status.ACTIVE;
     }
+
+
+
 
 }

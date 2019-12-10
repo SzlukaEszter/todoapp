@@ -28,20 +28,20 @@ public class TodoappApplication {
 		return args -> {
 			Todo first = Todo.builder()
 					.title("First Todo")
-					.status(Status.ACTIVE)
+					.completed(false)
 					.build();
 			System.out.println(first);
 
 			Todo second = Todo.builder()
 					.title("Second Todo")
-					.status(Status.ACTIVE)
+					.completed(false)
 					.build();
 
 			System.out.println(second);
 
 			Todo third = Todo.builder()
 					.title("Third Todo")
-					.status(Status.ACTIVE)
+					.completed(false)
 					.build();
 
 			System.out.println(third);

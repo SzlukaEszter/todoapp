@@ -1,6 +1,5 @@
 package com.codecool.szlukaeszter.advanced.todoapp.controller;
 
-import com.codecool.szlukaeszter.advanced.todoapp.entity.Status;
 import com.codecool.szlukaeszter.advanced.todoapp.entity.Todo;
 import com.codecool.szlukaeszter.advanced.todoapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,10 @@ public class Controller {
     }
 
     @PutMapping("/todos/toggle_all")
-    public String toggleAllStatus(@RequestParam boolean toggleAll) {
-        todoService.toggleAll(toggleAll);
+    public String toggleAllStatus(@RequestParam HashMap<String, String> req) {
+        System.out.println("got it");
+        boolean completed = req.get("toggle-all").equals("true");
+        todoService.toggleAll(completed);
         return SUCCESS;
     }
 
@@ -51,26 +52,22 @@ public class Controller {
         return SUCCESS;
     }
 
-
-   /*
-
-
-    // Update by id
-    put("/todos/:id", (req, res) -> {
-        TodoDao.update(req.params("id"), req.queryParams("todo-title"));
+    @PutMapping("/todos/{id}")
+    public String updateById(@PathVariable long id, @RequestParam HashMap<String, String> req) {
+        todoService.update(id, req.get("todo-title"));
         return SUCCESS;
-    });
-*/
-   @GetMapping("/todos/{id}")
-   public String findById(@PathVariable long id){
-       return todoService.find(id).getTitle();
-   }
+    }
 
-   @PutMapping("/todos/{id}/toggle_status")
-    public String toggleStatusById(@PathVariable long id, @RequestParam boolean status){
-       System.out.println("id: " + id);
-       System.out.println("status: " + status);
-       todoService.toggleStatus(id, status);
-       return SUCCESS;
-   }
+    @GetMapping("/todos/{id}")
+    public String findById(@PathVariable long id) {
+        return todoService.find(id).getTitle();
+    }
+
+    @PutMapping("/todos/{id}/toggle_status")
+    public String toggleStatusById(@PathVariable long id, @RequestParam boolean status) {
+        System.out.println("id: " + id);
+        System.out.println("status: " + status);
+        todoService.toggleStatus(id, status);
+        return SUCCESS;
+    }
 }

@@ -27,15 +27,9 @@ public class Controller {
         return SUCCESS;
     }
 
-    /*
     @PostMapping("/list")
-
     Todo[] getList(@RequestParam HashMap<String, String> req) {
         List<Todo> resultList = todoService.ofStatus(req.get("status"));
-        /*resultList.stream()
-                .forEach(todo -> {
-                    todo.calculateCompleted();
-                });
         return resultList.toArray(new Todo[resultList.size()]);
     }
 
@@ -43,7 +37,7 @@ public class Controller {
     public String removeAllCompleted() {
         todoService.removeCompleted();
         return SUCCESS;
-    }*/
+    }
 
     @PutMapping("/todos/toggle_all")
     public String toggleAllStatus(@RequestParam boolean toggleAll) {

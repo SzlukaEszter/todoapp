@@ -16,15 +16,16 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     @Query("update Todo t set t.completed = ?2 where t.id = ?1")
     @Modifying(clearAutomatically = true)
-    int updateStatusById(long id, boolean completed);
+    int updateCompletedById(long id, boolean completed);
 
     @Query("update Todo t set t.completed = ?1")
     @Modifying(clearAutomatically = true)
-    int updateAllStatuses(boolean completed);
+    int updateAllCompleted(boolean completed);
 
     @Query("update Todo t set t.title = ?2 where t.id = ?1")
     @Modifying(clearAutomatically = true)
     int updateTodoById(long id, String title);
+
 
 
 }

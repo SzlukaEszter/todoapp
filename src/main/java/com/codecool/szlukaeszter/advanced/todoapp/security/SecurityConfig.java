@@ -30,10 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers( "/auth/signin").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.POST, "/list").permitAll() // allowed by anyone
-                .antMatchers(HttpMethod.DELETE, "/todos/**").hasRole("USER"); // allowed only when signed in with admin role
-                //.anyRequest().denyAll(); // anything else is denied
-                //.and()
-               // .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
+                .antMatchers(HttpMethod.DELETE, "/todos/**").hasAnyAuthority("USER") // allowed only when signed in with admin role
+                .antMatchers(HttpMethod.POST, "/addTodo").authenticated()
+                .antMatchers(HttpMethod.PUT, "/todos/toggle_all").authenticated()
+                .anyRequest().denyAll() // anything else is denied
+                .and()
+                .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

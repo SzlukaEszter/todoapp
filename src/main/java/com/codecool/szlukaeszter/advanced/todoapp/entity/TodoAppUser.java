@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoAppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @NotEmpty
